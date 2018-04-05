@@ -20,6 +20,7 @@ public class Date {
 	*/
 	
 	
+	
 	public int getDay(){		
 		return this.day;
 	}	
@@ -30,7 +31,15 @@ public class Date {
 	
 	public int getYear(){
 		return this.year;
+	}	
+	
+	public String getDate() {
+		
+		String aDate;
+		aDate= this.day + "/" + this.month + "/" + this.year;
+		return aDate;
 	}
+	
 	
 	/*
 	* Compara la fecha entre diferentes variables: El año, el dia, el mes o todo
@@ -118,7 +127,8 @@ public class Date {
 	
 	public boolean isDayOfTheMonthOk(){
 	boolean ok;
-	ok=false;
+	ok=true;
+	
 	switch (this.month){
 	case 1:
 	case 3: 
@@ -127,23 +137,243 @@ public class Date {
 	case 8:
 	case 10:
 	case 12:
-		if(this.day<=31 && this.day>0){
-		ok=true;
+		if(this.day>31 && this.day<0){
+		ok=false;
 		}
+	break;
 	
 	case 4:
 	case 6:
 	case 9:
 	case 11:
-		if(this.day<=30 && this.day>0){
-		ok=true;
+		if(this.day>30 && this.day<0){
+		ok=false;
 		}
+	break;
 	case 2:
-		if(this.day<=28 && this.day>0){
-		ok=true;
+		if(this.day>28 && this.day<0){
+		ok=false;
 		}
+	
+	
 	}
 	return ok;
-	}
+
+	
 	
 }
+	public String getSeasonName () {
+	String SeasonName;
+	
+	SeasonName=" ";
+	
+	switch(this.month) {
+	case 12:
+	case 1:
+	case 2:
+	case 3:
+		SeasonName="Invierno";
+		
+	break;
+	
+	case 4:
+	case 5:
+	case 6:
+		SeasonName="Primavera";
+		
+	break;
+	
+	case 7:
+	case 8:
+	case 9:
+		SeasonName="Verano";
+	
+	break;
+	
+	case 10:
+	case 11:
+		SeasonName="Otoño";
+		
+	break;
+	}
+	return SeasonName;
+}
+	public String getMonthsRemaining () {
+	
+		String MonthsRemaining;
+		MonthsRemaining=" ";
+	
+		int mes=this.month +1;
+	
+		
+		
+		for(int i=mes;i<13;i++){		
+		Date otra;
+		otra= new Date(this.day, mes, this.year);	
+			MonthsRemaining =MonthsRemaining.concat(" " + otra.getMonthName());
+			mes=mes+1;
+	
+		}
+		return MonthsRemaining;
+
+	}
+	
+
+	public String getDatesRemaining () {
+	
+		String DatesRemaining;
+		DatesRemaining=" ";
+		int day;
+		day=this.day;
+		
+		switch (this.month) {
+		case 1:
+		case 3: 	
+		case 5:	
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+		
+			for(int i=this.day;i<32;i++) {
+			Date otra1;
+				otra1= new Date(day, this.month, this.year);
+			DatesRemaining = DatesRemaining.concat(" " + otra1.getDate());
+			day=day+1;
+			}
+		break;
+	
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+		
+			for(int i=this.day;i<30;i++) {
+			Date otra1;
+				otra1= new Date(day, this.month, this.year);
+			DatesRemaining = DatesRemaining.concat(" " + otra1.getDate());
+			day=day+1;
+			
+			}
+		break;
+		
+		case 2:
+			for(int i=this.day;i<28;i++){
+			Date otra1;
+				otra1= new Date(day, this.month, this.year);
+			DatesRemaining = DatesRemaining.concat(" " + otra1.getDate());
+			day=day+1;
+			}
+		break;
+	
+		}
+
+		
+		return DatesRemaining;
+
+	
+
+	}
+
+	public String getMonthSameDays(){
+	
+	String MonthSameDays;
+	MonthSameDays=" ";
+	
+	if(this.month==1 || this.month==3 || this.month==5 || this.month==7 || this.month==8 || this.month==10 || this.month==12){
+	MonthSameDays="Enero, Marzo, Mayo, Julio, Agosto, Octubre, Diciembre";
+	}
+	else if(this.month==4 || this.month==6 || this.month==9 || this.month==11){
+	MonthSameDays="Abril, Junio, Septiembre y Noviembre";
+	}
+	else{
+	MonthSameDays="Febrero";
+	}
+	
+	return MonthSameDays;
+	}
+
+	
+	public int getDaysPassed() {
+	int DaysPassed;
+	DaysPassed=this.day;
+	int mes=this.month;
+	
+	switch(mes) {
+	case 1:
+		DaysPassed= this.day;
+		break;
+	case 2:
+		DaysPassed= DaysPassed + 31;
+		break;
+	case 3:
+		DaysPassed= DaysPassed +31+28;
+		break;
+	case 4:
+		DaysPassed=DaysPassed + 31+28+31;
+		break;
+	case 5:
+		DaysPassed=DaysPassed + 31+28+31+30;
+		break;
+	case 6:
+		DaysPassed=DaysPassed + 31+28+31+30+31;
+		break;
+	case 7:
+		DaysPassed=DaysPassed + 31+28+31+30+31+30;
+		break;
+	case 8:
+		DaysPassed=DaysPassed + 31+28+31+30+31+30+31;
+		break;
+	case 9: 
+		DaysPassed=DaysPassed + 31+28+31+30+31+30+31+31;
+		break;
+	case 10:
+		DaysPassed=DaysPassed + 31+28+31+30+31+30+31+31+30;
+		break;
+	case 11:
+		DaysPassed=DaysPassed + 31+28+31+30+31+30+31+31+30+31;
+		break;
+	case 12:
+		DaysPassed=DaysPassed + 31+28+31+30+31+30+31+31+30+31+30;
+		break;
+	
+	
+	}
+	
+	return DaysPassed;
+
+	
+
+
+}
+public int getRandomDate(){
+
+int diaR=0;
+
+int mesR=0;
+
+Date randomdate=new Date(diaR,mesR,this.year);
+Date Date=new Date(this.day,this.month,this.year);
+int contador=0;
+	
+	do{
+		diaR=(int) Math.random()*31;
+		mesR=(int) Math.random()*12;
+		
+	contador++;
+	}while(randomdate.isSame(Date)==false);
+/*
+*Ahora hecho con while
+*	
+*while(randomdate.isSame(Date)==false)
+*diaR=(int) Math.random()*31;
+*mesR=(int) Math.random()*12;
+*contador++;
+*}
+*/
+
+return contador;
+
+}
+	}
+

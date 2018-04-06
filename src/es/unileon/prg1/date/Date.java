@@ -5,11 +5,22 @@ public class Date {
 	private int month;
 	private int year;
 	
-	// Constructor mal programado: Permite crear fechas no validas
-	public Date(int day, int month, int year){
+	
+	public Date(int day, int month, int year) {
+		
+		if(month<1 || month>12){
+		this.month=0;
+		}
+		if(isValidDay(this.day,this.month)==false){
+		this.day=0;
+		}
+		
+		else{
 		this.day = day;
 		this.month = month;
 		this.year = year;
+		}
+	
 	}
 	
 	/*
@@ -40,6 +51,31 @@ public class Date {
 		return aDate;
 	}
 	
+	private boolean isValidDay (int day, int month){
+	int max=0;
+	boolean valid;
+	valid=false;
+	
+	if(this.month==1 || this.month==3 || this.month==5 || this.month==7 || this.month==8 || this.month==10 || this.month==12){
+	max=31;
+	}
+	else if(this.month==4 || this.month==6 || this.month==9 || this.month==11){
+	max=30;
+	}
+	else if (this.month==2) {
+	max=28;
+	}
+	
+	if(day<=max){
+	valid=true;
+	}
+	else{
+	valid=false;
+	}
+	return valid;
+	}
+	
+
 	
 	/*
 	* Compara la fecha entre diferentes variables: El año, el dia, el mes o todo
@@ -342,37 +378,99 @@ public class Date {
 	
 	return DaysPassed;
 
-	
+}	
+public int getlastDayMonth(int meses){
+int lastDay=0;
+meses=this.month;
 
+switch(meses){
+	case 1:
+	case 3: 
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:
+		lastDay=31;
+	break;
+	
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		lastDay=30;
+	break;
+	case 2:
+		lastDay=28;
+	
+	
+	}
+return lastDay;
 
 }
 public int getRandomDate(){
+		int cont, day, month;
+		cont=0; day=1; month=1;
+		Date random;
+		random =new Date(day,month,this.year);
+		do{
+			random.month=(int)(Math.random()*12)+1;
+			random.day=(int)(Math.random()*(this.getlastDayMonth(month)))+1;
+			cont = cont +1;
+		}while(this.isSame(random)==false);
+		return cont;
 
-int diaR=0;
-
-int mesR=0;
-
-Date randomdate=new Date(diaR,mesR,this.year);
-Date Date=new Date(this.day,this.month,this.year);
-int contador=0;
-	
-	do{
-		diaR=(int) Math.random()*31;
-		mesR=(int) Math.random()*12;
-		
-	contador++;
-	}while(randomdate.isSame(Date)==false);
 /*
-*Ahora hecho con while
-*	
-*while(randomdate.isSame(Date)==false)
-*diaR=(int) Math.random()*31;
-*mesR=(int) Math.random()*12;
-*contador++;
-*}
-*/
+Ahora hecho con while
+	
+while(random.isSame(Date)==false)
+random.day=(int) (Math.random() * this.getlastDayMonth(this.month)) +1;
+random.month=(int) (Math.random()*12 )+1;
+cont=cont + 1;
+}
 
-return contador;
+
+return cont;
+*/
+}
+	
+public String getWeekDay(){
+int day1, mes1;
+String WeekDay;
+WeekDay=" ";
+day1=1;
+mes1=1;
+Date dateone= new Date(day1,mes1, this.year);
+Date Date = new Date(this.day,this.month,this.year);
+
+	
+//day1= lunes
+
+	if(Date.getDaysPassed()%7==0){
+		WeekDay=WeekDay + "Lunes";
+	}
+	if(Date.getDaysPassed()%7==1){
+		WeekDay=WeekDay + "Martes";
+	}
+	if(Date.getDaysPassed()%7==2){
+		WeekDay=WeekDay + "Miercoles";
+	}
+	if(Date.getDaysPassed()%7==3){
+		WeekDay=WeekDay + "Jueves";
+	}
+	if(Date.getDaysPassed()%7==4){
+		WeekDay=WeekDay + "Viernes";
+	}
+	if(Date.getDaysPassed()%7==5){
+		WeekDay=WeekDay + "Sabado";
+	}
+	if(Date.getDaysPassed()%7==6){
+		WeekDay=WeekDay + "Domingo";
+	}
+	
+
+return WeekDay;
+
 
 }
 	}

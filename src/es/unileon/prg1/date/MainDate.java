@@ -22,7 +22,8 @@ public class MainDate {
 		System.out.println("Los dias que quedan hasta final de mes son:" + today.getDatesRemaining() + "\n");		
 		System.out.println("Los meses que tienen los mismos dias son :" + today.getMonthSameDays() + "\n");	
 		System.out.println("Han pasado " + today.getDaysPassed() + " dias desde el comienzo de año" + "\n");	
-		System.out.println("Han sido " + today.getRandomDate() + " intentos");
+		System.out.println("El dia de la semana es: " + today.getWeekDay());
+		System.out.println("Se han necesitado " + today.getRandomDate() + " intentos");
 		
 		
 		}
